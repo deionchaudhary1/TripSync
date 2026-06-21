@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TripSync — Results</title>
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Trip Results</h1>
+    <p class="sub" id="trip-label">Loading...</p>
+
+    <div class="count-banner" id="count-banner">0 submitted</div>
+
+    <div class="respondent-list" id="respondent-list"></div>
+
+    <div id="generate-form">
+      <label for="origin-city">Departure city (whole group)</label>
+      <input type="text" id="origin-city" placeholder="e.g. San Francisco" />
+      <label for="origin-airport">Departure airport code</label>
+      <input type="text" id="origin-airport" placeholder="e.g. SFO" maxlength="3" style="text-transform:uppercase" />
+
+      <button class="primary" id="generate-btn" disabled>Generate Trip Plan (need at least 2)</button>
+      <div class="error" id="generate-error"></div>
+    </div>
+
+    <div id="generating-status" style="display:none">
+      <div class="count-banner">⏳ Generating trip plan...</div>
+      <p class="sub" style="text-align:center">This runs real browser research for each destination — usually takes 1-2 minutes.</p>
+    </div>
+
+    <div id="plan-ready" style="display:none">
+      <button class="primary" id="view-plan-btn">View Trip Plan</button>
+    </div>
+  </div>
+
+  <script src="/results.js"></script>
+</body>
+</html>

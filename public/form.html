@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TripSync — Your Preferences</title>
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="container" id="form-container">
+    <h1>Trip Preferences</h1>
+    <p class="sub" id="trip-label">Loading trip...</p>
+
+    <form id="pref-form">
+      <label for="name">Your name</label>
+      <input type="text" id="name" autocomplete="name" required />
+
+      <label>Budget</label>
+      <div class="chip-group" id="budget-group">
+        <div class="chip" data-value="$">$</div>
+        <div class="chip" data-value="$$">$$</div>
+        <div class="chip" data-value="$$$">$$$</div>
+      </div>
+
+      <label>Vibe (pick as many as you like)</label>
+      <div class="chip-group" id="vibe-group">
+        <div class="chip" data-value="relaxing">Relaxing</div>
+        <div class="chip" data-value="adventurous">Adventurous</div>
+        <div class="chip" data-value="foodie">Foodie</div>
+        <div class="chip" data-value="nightlife">Nightlife</div>
+        <div class="chip" data-value="nature">Nature</div>
+        <div class="chip" data-value="culture">Culture</div>
+      </div>
+
+      <label>Dates</label>
+      <div class="date-row">
+        <div>
+          <label for="start-date">Start</label>
+          <input type="date" id="start-date" />
+        </div>
+        <div>
+          <label for="end-date">End</label>
+          <input type="date" id="end-date" />
+        </div>
+      </div>
+      <label class="flex-toggle">
+        <input type="checkbox" id="flexible-toggle" />
+        I'm flexible on dates
+      </label>
+
+      <label for="notes">Anything else? (deal-breakers, must-haves)</label>
+      <textarea id="notes" placeholder="e.g. no long layovers, need a pool, vegetarian-friendly food..."></textarea>
+
+      <div class="error" id="error"></div>
+      <button type="submit" class="primary" id="submit-btn">Submit</button>
+    </form>
+
+    <div class="success" id="success" style="display:none">
+      <div class="checkmark">✅</div>
+      <h2>Thanks, you're in!</h2>
+      <p class="sub">Your preferences have been submitted.</p>
+    </div>
+  </div>
+
+  <script src="/form.js"></script>
+</body>
+</html>

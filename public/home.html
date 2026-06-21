@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TripSync — Start a Trip</title>
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>TripSync</h1>
+    <p class="sub">Create a trip session, then share the link with your group.</p>
+    <button class="primary" id="create-btn">Create Trip</button>
+    <div class="error" id="error"></div>
+
+    <div id="created" style="display:none">
+      <h2>Share this with your group</h2>
+      <div class="code-display" id="trip-code"></div>
+      <div class="link-box" id="trip-link"></div>
+      <button class="primary" id="results-btn">Go to Results View</button>
+    </div>
+  </div>
+
+  <script src="/home.js"></script>
+</body>
+</html>
