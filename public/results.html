@@ -4,21 +4,30 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>TripSync — Results</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Trip Results</h1>
+    <div class="brand"><span class="logo">✈️</span><h1>Trip Results</h1></div>
     <p class="sub" id="trip-label">Loading...</p>
 
-    <div class="count-banner" id="count-banner">0 submitted</div>
+    <div class="step-indicator" id="step-indicator">
+      <div class="step active" data-step="collect"><span class="dot">1</span>Collect</div>
+      <div class="connector"></div>
+      <div class="step" data-step="generate"><span class="dot">2</span>Generate</div>
+      <div class="connector"></div>
+      <div class="step" data-step="done"><span class="dot">3</span>Done</div>
+    </div>
+
+    <div class="count-banner" id="count-banner">👥 0 submitted</div>
 
     <div class="respondent-list" id="respondent-list"></div>
 
     <div id="generate-form">
-      <label for="origin-city">Departure city (whole group)</label>
+      <label for="origin-city">✈️ Departure city (whole group)</label>
       <input type="text" id="origin-city" placeholder="e.g. San Francisco" />
-      <label for="origin-airport">Departure airport code</label>
+      <label for="origin-airport">🛫 Departure airport code</label>
       <input type="text" id="origin-airport" placeholder="e.g. SFO" maxlength="3" style="text-transform:uppercase" />
 
       <button class="primary" id="generate-btn" disabled>Generate Trip Plan (need at least 2)</button>
@@ -26,12 +35,12 @@
     </div>
 
     <div id="generating-status" style="display:none">
-      <div class="count-banner">⏳ Generating trip plan...</div>
+      <div class="count-banner pulsing">⏳ Generating trip plan...</div>
       <p class="sub" style="text-align:center">This runs real browser research for each destination — usually takes 1-2 minutes.</p>
     </div>
 
     <div id="plan-ready" style="display:none">
-      <button class="primary" id="view-plan-btn">View Trip Plan</button>
+      <button class="primary" id="view-plan-btn">🎉 View Trip Plan</button>
     </div>
   </div>
 

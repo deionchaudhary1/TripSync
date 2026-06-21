@@ -13,10 +13,22 @@ const originAirportEl = document.getElementById("origin-airport");
 const generatingStatusEl = document.getElementById("generating-status");
 const planReadyEl = document.getElementById("plan-ready");
 const viewPlanBtn = document.getElementById("view-plan-btn");
+const stepIndicatorEl = document.getElementById("step-indicator");
 
 let lastCount = -1;
 let respondentCount = 0;
 let planPollStarted = false;
+
+function setStep(stepName) {
+  const order = ["collect", "generate", "done"];
+  const currentIdx = order.indexOf(stepName);
+  stepIndicatorEl.querySelectorAll(".step").forEach((el) => {
+    const idx = order.indexOf(el.dataset.step);
+    el.classList.remove("active", "done");
+    if (idx < currentIdx) el.classList.add("done");
+    else if (idx === currentIdx) el.classList.add("active");
+  });
+}
 
 function renderRespondents(respondents) {
   if (respondents.length === 0) {
@@ -53,7 +65,7 @@ async function pollRespondents() {
     respondentCount = data.count;
 
     if (data.count !== lastCount) {
-      countBannerEl.textContent = `${data.count} submitted`;
+      countBannerEl.textContent = `👥 ${data.count} submitted`;
       renderRespondents(data.respondents);
       lastCount = data.count;
     }
@@ -101,6 +113,7 @@ generateBtn.addEventListener("click", async () => {
     planPollStarted = true;
     generateFormEl.style.display = "none";
     generatingStatusEl.style.display = "block";
+    setStep("generate");
     pollPlanStatus();
   } catch (err) {
     generateErrorEl.textContent = err.message;
@@ -117,6 +130,7 @@ async function pollPlanStatus() {
     if (data.status === "done") {
       generatingStatusEl.style.display = "none";
       planReadyEl.style.display = "block";
+      setStep("done");
       return;
     }
     if (data.status === "error") {
@@ -125,6 +139,7 @@ async function pollPlanStatus() {
       generateBtn.disabled = false;
       generateErrorEl.textContent = `Plan generation failed: ${data.error || "unknown error"}`;
       generateErrorEl.style.display = "block";
+      setStep("collect");
       return;
     }
   } catch {

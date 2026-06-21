@@ -4,23 +4,26 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>TripSync — Start a Trip</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
   <div class="container">
-    <h1>TripSync</h1>
+    <div class="brand"><span class="logo">✈️</span><h1>TripSync</h1></div>
     <p class="sub">Create a trip session, then share the link with your group.</p>
-    <button class="primary" id="create-btn">Create Trip</button>
+    <button class="primary" id="create-btn">🚀 Create Trip</button>
     <div class="error" id="error"></div>
 
     <div id="created" style="display:none">
-      <h2>Share this with your group</h2>
+      <h2>🔗 Share this with your group</h2>
       <div class="code-display" id="trip-code"></div>
+      <div class="qr-wrap" id="qr-code"></div>
       <div class="link-box" id="trip-link"></div>
-      <button class="primary" id="results-btn">Go to Results View</button>
+      <button class="primary" id="results-btn">📊 Go to Results View</button>
     </div>
   </div>
 
+  <script src="/qrcode.js"></script>
   <script src="/home.js"></script>
 </body>
 </html>

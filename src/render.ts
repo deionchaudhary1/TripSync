@@ -20,6 +20,13 @@ function scoreColor(score: number): string {
   return "#dc2626";
 }
 
+function rankBadge(rank: number): string {
+  if (rank === 1) return "🥇";
+  if (rank === 2) return "🥈";
+  if (rank === 3) return "🥉";
+  return `#${rank}`;
+}
+
 function renderCard(
   research: DestinationResearch,
   score: DestinationScore | undefined,
@@ -31,26 +38,26 @@ function renderCard(
   return `
   <div class="card">
     <div class="card-header">
-      <span class="rank">#${rank}</span>
+      <span class="rank">${rankBadge(rank)}</span>
       <h2>${escapeHtml(research.candidate.name)}</h2>
       <span class="score" style="background:${scoreColor(overall)}">${overall.toFixed(1)}/10</span>
     </div>
 
     <div class="stats">
       <div class="stat">
-        <div class="stat-label">Flights (round trip)</div>
+        <div class="stat-label">✈️ Flights (round trip)</div>
         <div class="stat-value">${rangeText(research.price.flightPriceRangeUSD)}</div>
       </div>
       <div class="stat">
-        <div class="stat-label">Lodging (per night)</div>
+        <div class="stat-label">🏨 Lodging (per night)</div>
         <div class="stat-value">${rangeText(research.price.lodgingPriceRangeUSDPerNight)}</div>
       </div>
       <div class="stat">
-        <div class="stat-label">Budget fit</div>
+        <div class="stat-label">💰 Budget fit</div>
         <div class="stat-value">${score ? score.budgetFitScore.toFixed(1) : "?"}/10</div>
       </div>
       <div class="stat">
-        <div class="stat-label">Vibe match</div>
+        <div class="stat-label">🎉 Vibe match</div>
         <div class="stat-value">${score ? score.vibeMatchScore.toFixed(1) : "?"}/10</div>
       </div>
     </div>
@@ -62,7 +69,7 @@ function renderCard(
     }
 
     <div class="activities">
-      <div class="section-label">Top activities</div>
+      <div class="section-label">📍 Top activities</div>
       <ul>
         ${research.activities.activities.slice(0, 6).map((a) => `<li>${escapeHtml(a)}</li>`).join("\n        ")}
       </ul>
@@ -103,33 +110,45 @@ export function renderResultsHtml(
 <head>
 <meta charset="UTF-8" />
 <title>TripSync — Group Trip Suggestions</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E" />
 <style>
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: #f7f7f9;
     color: #1a1a1a;
     margin: 0;
-    padding: 40px 20px;
+    padding: 0 0 40px;
   }
   .header {
     max-width: 900px;
     margin: 0 auto 32px;
     text-align: center;
+    background: linear-gradient(135deg, #1a1a2e, #2d2d55);
+    color: white;
+    padding: 48px 20px 40px;
+    border-radius: 0 0 28px 28px;
   }
+  .header .logo { font-size: 2.2rem; margin-bottom: 4px; }
   .header h1 { margin: 0 0 8px; font-size: 2rem; }
-  .header p { color: #555; margin: 0; }
+  .header p { color: rgba(255,255,255,0.8); margin: 0; }
   .container {
     max-width: 900px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 24px;
+    padding: 0 20px;
   }
   .card {
     background: white;
     border-radius: 14px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     padding: 24px 28px;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
   }
   .card-header {
     display: flex;
@@ -141,7 +160,15 @@ export function renderResultsHtml(
   .rank {
     font-weight: 700;
     color: #888;
-    font-size: 0.95rem;
+    font-size: 1.3rem;
+  }
+  .footer {
+    max-width: 900px;
+    margin: 32px auto 0;
+    text-align: center;
+    color: #999;
+    font-size: 0.8rem;
+    padding: 0 20px;
   }
   .score {
     color: white;
@@ -192,12 +219,14 @@ export function renderResultsHtml(
 </head>
 <body>
   <div class="header">
+    <div class="logo">✈️</div>
     <h1>Your Group Trip Options</h1>
     <p>${prefs.groupSize} travelers · $${prefs.budgetPerPerson}/person budget · ${prefs.startDate} to ${prefs.endDate} · vibe: ${escapeHtml(prefs.vibe.join(", "))}</p>
   </div>
   <div class="container">
     ${cards}
   </div>
+  <div class="footer">Built with TripSync · powered by Claude + Browserbase</div>
 </body>
 </html>`;
 }
